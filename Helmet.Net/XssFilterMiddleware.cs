@@ -24,8 +24,6 @@ namespace Helmet.Net
 
         public async override Task Invoke(IOwinContext context)
         {
-
-
             if (_options != null && _options.SetOnOldIE)
             {
                 context.Response.Headers.Add("X-XSS-Protection", new[] { XssProtectionHeaderValue });
@@ -43,7 +41,7 @@ namespace Helmet.Net
 
                     MatchCollection matches = regex.Matches(headerFromRequest);
 
-                    if ((matches.Count <= 0) || EnsureMathes(matches))
+                    if ((matches.Count <= 0) || CheckUseragentVersion(matches))
                     {
                         headerToSet = XssProtectionHeaderValue;
                     }
@@ -63,7 +61,7 @@ namespace Helmet.Net
             }
         }
 
-        private bool EnsureMathes(MatchCollection matches)
+        private bool CheckUseragentVersion(MatchCollection matches)
         {
             float version;
 

@@ -1,5 +1,5 @@
-﻿using System.Web.Http;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 
 namespace Helmet.Net.Tests
 {
@@ -9,7 +9,7 @@ namespace Helmet.Net.Tests
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new[] { "hello", "world" };
+            return new[] {"hello", "world"};
         }
     }
 }

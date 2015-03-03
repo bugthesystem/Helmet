@@ -7,6 +7,10 @@ namespace Helmet.Net.Tests
     [TestFixture]
     public class TestBase
     {
+        private MockRepository _mockRepository;
+        protected IFixture FixtureRepository { get; set; }
+        protected bool VerifyAll { get; set; }
+
         [SetUp]
         public void Setup()
         {
@@ -30,10 +34,6 @@ namespace Helmet.Net.Tests
 
             FinalizeTearDown();
         }
-
-        private MockRepository _mockRepository;
-        protected IFixture FixtureRepository { get; set; }
-        protected bool VerifyAll { get; set; }
 
         protected Mock<T> MockFor<T>() where T : class
         {

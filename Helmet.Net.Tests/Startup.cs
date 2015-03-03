@@ -9,7 +9,7 @@ namespace Helmet.Net.Tests
         public void Configuration(IAppBuilder appBuilder)
         {
             var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
             config.MapHttpAttributeRoutes();
 
             appBuilder.Use<XssFilterMiddleware>();
@@ -22,7 +22,7 @@ namespace Helmet.Net.Tests
         public void Configuration(IAppBuilder appBuilder)
         {
             var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
             config.MapHttpAttributeRoutes();
 
             appBuilder.Use<XssFilterMiddleware>(new XssFilterOptions

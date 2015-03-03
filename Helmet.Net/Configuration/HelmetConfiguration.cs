@@ -10,6 +10,7 @@ namespace Helmet.Net.Configuration
         {
             Activates = Enumerable.Empty<Type>();
         }
+
         public IEnumerable<Type> Activates { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Helmet.Net.Tests.Extensions
     {
         public static async Task ThrowsAsync<TException>(Func<Task> action) where TException : Exception
         {
-            Type expected = typeof (TException);
+            var expected = typeof (TException);
             Type actual = null;
 
             try
