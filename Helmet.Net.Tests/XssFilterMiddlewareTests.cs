@@ -1,4 +1,6 @@
-﻿namespace Helmet.Net.Tests
+using NUnit.Framework;
+
+namespace Helmet.Net.Tests
 {
     public class XssFilterMiddlewareTests : TestBase
     {
