@@ -1,0 +1,15 @@
+configuration: Release
+branches:
+  only:
+    - master
+
+before_build:
+  - nuget restore Helmet.Net.sln
+
+build:
+  project: Helmet.Net.sln       
+  verbosity: minimal
+
+test:
+  assemblies:
+    - '**\*.Tests.dll'
