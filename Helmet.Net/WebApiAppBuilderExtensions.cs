@@ -1,7 +1,7 @@
 ﻿using System;
-using Owin;
 using System.ComponentModel;
 using Helmet.Net.Configuration;
+using Owin;
 
 namespace Helmet.Net
 {

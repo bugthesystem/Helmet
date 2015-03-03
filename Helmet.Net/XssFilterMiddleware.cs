@@ -1,14 +1,14 @@
-﻿using Microsoft.Owin;
+﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Helmet.Net.Configuration;
-using System.Text.RegularExpressions;
+using Microsoft.Owin;
 
 namespace Helmet.Net
 {
     public class XssFilterMiddleware : OwinMiddleware
     {
+        private const string XssProtectionHeaderValue = "1; mode=block";
         private readonly IXssFilterOptions _options;
-        const string XssProtectionHeaderValue = "1; mode=block";
 
         public XssFilterMiddleware(OwinMiddleware next, IXssFilterOptions options)
             : base(next)
@@ -22,11 +22,11 @@ namespace Helmet.Net
             _options = null;
         }
 
-        public async override Task Invoke(IOwinContext context)
+        public override async Task Invoke(IOwinContext context)
         {
             if (_options != null && _options.SetOnOldIE)
             {
-                context.Response.Headers.Add("X-XSS-Protection", new[] { XssProtectionHeaderValue });
+                context.Response.Headers.Add("X-XSS-Protection", new[] {XssProtectionHeaderValue});
                 await Next.Invoke(context);
             }
             else
@@ -35,11 +35,11 @@ namespace Helmet.Net
 
                 if (context.Request.Headers.ContainsKey("User-Agent"))
                 {
-                    string headerFromRequest = context.Request.Headers.Get("User-Agent");
+                    var headerFromRequest = context.Request.Headers.Get("User-Agent");
 
-                    Regex regex = new Regex(@"msie\s*(\d+)", RegexOptions.IgnoreCase);
+                    var regex = new Regex(@"msie\s*(\d+)", RegexOptions.IgnoreCase);
 
-                    MatchCollection matches = regex.Matches(headerFromRequest);
+                    var matches = regex.Matches(headerFromRequest);
 
                     if ((matches.Count <= 0) || CheckUseragentVersion(matches))
                     {
@@ -55,7 +55,7 @@ namespace Helmet.Net
                     headerToSet = XssProtectionHeaderValue;
                 }
 
-                context.Response.Headers.Add("X-XSS-Protection", new[] { headerToSet });
+                context.Response.Headers.Add("X-XSS-Protection", new[] {headerToSet});
 
                 await Next.Invoke(context);
             }
