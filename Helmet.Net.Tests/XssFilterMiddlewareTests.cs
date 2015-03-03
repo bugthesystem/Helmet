@@ -5,7 +5,7 @@ namespace Helmet.Net.Tests
     public class XssFilterMiddlewareTests : TestBase
     {
         [Test]
-        public async Task HelloTest()
+        public async void HelloTest()
         {
             Assert.IsTrue(true);
         }
