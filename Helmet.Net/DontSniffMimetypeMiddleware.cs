@@ -12,7 +12,7 @@ namespace Helmet.Net
 
         public override async Task Invoke(IOwinContext context)
         {
-            context.Response.Headers.Add("'X-Content-Type-Options", new[] { "nosniff" });
+            context.Response.Headers.Add("X-Content-Type-Options", new[] { "nosniff" });
             await Next.Invoke(context);
         }
     }

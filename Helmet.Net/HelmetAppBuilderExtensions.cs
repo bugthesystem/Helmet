@@ -6,7 +6,7 @@ using Owin;
 namespace Helmet.Net
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static class WebApiAppBuilderExtensions
+    public static class HelmetAppBuilderExtensions
     {
         public static IAppBuilder UseHelmet(this IAppBuilder builder, IHelmetConfiguration configuration)
         {

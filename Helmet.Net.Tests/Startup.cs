@@ -58,4 +58,30 @@ namespace Helmet.Net.Tests
             appBuilder.UseWebApi(config);
         }
     }
+
+    public class Startup4NoCache
+    {
+        public void Configuration(IAppBuilder appBuilder)
+        {
+            var config = new HttpConfiguration();
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.MapHttpAttributeRoutes();
+
+            appBuilder.Use<NoCacheMiddleware>();
+            appBuilder.UseWebApi(config);
+        }
+    }
+
+    public class Startup4NoCacheWithConfig
+    {
+        public void Configuration(IAppBuilder appBuilder)
+        {
+            var config = new HttpConfiguration();
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.MapHttpAttributeRoutes();
+
+            appBuilder.Use<NoCacheMiddleware>(new NoCacheOptions { NoEtag = true });
+            appBuilder.UseWebApi(config);
+        }
+    }
 }
