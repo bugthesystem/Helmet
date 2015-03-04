@@ -6,7 +6,7 @@ Middlewares to help secure your apps
 ##Middlewares
 
 * [X-XSS-Protection middleware](#x-xss-protection-middleware)
-* ["Don't infer the MIME type" middleware](#"Don't-infer-the-MIME-type"-middleware)
+* ["Don't infer the MIME type" middleware](#dont-infer-the-mime-type-middleware)
 
 
 ## X-XSS-Protection middleware
