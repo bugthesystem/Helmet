@@ -107,7 +107,7 @@
   <ItemGroup>
     <Compile Include="Extensions\AssertExtensions.cs" />
     <Compile Include="Extensions\MoqExtensions.cs" />
-    <Compile Include="FakeController.cs" />
+    <Compile Include="FooController.cs" />
     <Compile Include="IeNoOpenMiddlewareTest.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TestBase.cs" />

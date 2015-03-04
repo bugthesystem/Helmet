@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using FluentAssertions;
 using Microsoft.Owin.Hosting;
@@ -22,13 +23,14 @@ namespace Helmet.Net.Tests
         public async void SetsHeaderProperly()
         {
             var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, BaseAddress + "api/foo?op=ienopen");
+            var request = new HttpRequestMessage(HttpMethod.Get, BaseAddress + "api/foo");
 
 
             var send = await client.SendAsync(request);
             IEnumerable<string> values;
             send.Headers.TryGetValues("X-Download-Options", out values);
             values.Should().NotBeNullOrEmpty();
+            values.First().ShouldBeEquivalentTo("noopen");
         }
 
         [TestFixtureTearDown]

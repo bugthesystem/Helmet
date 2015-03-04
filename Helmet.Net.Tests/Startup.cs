@@ -41,7 +41,7 @@ namespace Helmet.Net.Tests
             config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
             config.MapHttpAttributeRoutes();
 
-            //appBuilder.Use<IeNoOpenMiddleware>();
+            appBuilder.Use<IeNoOpenMiddleware>();
             appBuilder.UseWebApi(config);
         }
     }
