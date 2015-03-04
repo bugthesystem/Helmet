@@ -19,7 +19,6 @@ namespace Helmet.Net
         public XssFilterMiddleware(OwinMiddleware next)
             : base(next)
         {
-            _options = null;
         }
 
         public override async Task Invoke(IOwinContext context)
