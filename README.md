@@ -7,6 +7,7 @@ Middlewares to help secure your apps
 
 * [X-XSS-Protection middleware](#x-xss-protection-middleware)
 * ["Don't infer the MIME type" middleware](#dont-infer-the-mime-type-middleware)
+* [Middleware to turn off caching](#middleware-to-turn-off-caching)
 
 
 ## X-XSS-Protection middleware
@@ -69,3 +70,37 @@ public class Startup
 [MSDN has a good description](https://msdn.microsoft.com/en-us/library/gg622941(v=vs.85).aspx) of how browsers behave when this header is sent.
 
 This only prevents against a certain kind of attack.
+
+
+## Middleware to turn off caching
+
+It's possible that you've got bugs in an old HTML or JavaScript file, and with a cache, some users will be stuck with those old versions. This will (try to) abolish all client-side caching.
+```csharp
+public class Startup
+{
+  public void Configuration(IAppBuilder appBuilder)
+  {
+    //omitted for brevity
+     appBuilder.Use<NoCacheMiddleware>();
+    //...
+  }
+}
+```
+This will set ```Cache-Control``` and ```Pragma``` headers to stop caching. It will also set an Expires header of 0, effectively saying "this has already expired."
+
+If you want to crush the ```ETag``` header as well, you can:
+```csharp
+public class Startup
+{
+  public void Configuration(IAppBuilder appBuilder)
+  {
+    //omitted for brevity
+     appBuilder.Use<NoCacheMiddleware>(new NoCacheOptions 
+     { 
+       NoEtag = true 
+     });
+    //...
+  }
+}
+```
+Caching has some real benefits, and you lose them here. Browsers won't cache resources with this enabled, although _some_ performance is retained if you keep ETag support. It's also possible that you'll introduce new bugs and you'll wish people had old resources cached, but that's less likely.
