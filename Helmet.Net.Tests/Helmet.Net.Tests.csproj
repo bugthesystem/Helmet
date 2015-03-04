@@ -108,8 +108,9 @@
     <Compile Include="Extensions\AssertExtensions.cs" />
     <Compile Include="Extensions\MoqExtensions.cs" />
     <Compile Include="FooController.cs" />
+    <Compile Include="DontSniffMimetypeMiddlewareTest.cs" />
     <Compile Include="IeNoOpenMiddlewareTest.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="Startup4XssFilter.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="XssFilterMiddlewareTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

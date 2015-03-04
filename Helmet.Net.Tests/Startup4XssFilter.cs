@@ -4,12 +4,12 @@ using Owin;
 
 namespace Helmet.Net.Tests
 {
-    public class Startup
+    public class Startup4XssFilter
     {
         public void Configuration(IAppBuilder appBuilder)
         {
             var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
             config.MapHttpAttributeRoutes();
 
             appBuilder.Use<XssFilterMiddleware>();
@@ -17,12 +17,12 @@ namespace Helmet.Net.Tests
         }
     }
 
-    public class StartupWithConfig
+    public class Startup4XssFilterWithConfig
     {
         public void Configuration(IAppBuilder appBuilder)
         {
             var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
             config.MapHttpAttributeRoutes();
 
             appBuilder.Use<XssFilterMiddleware>(new XssFilterOptions
@@ -46,4 +46,16 @@ namespace Helmet.Net.Tests
         }
     }
 
+    public class Startup4DontSniffMimetype
+    {
+        public void Configuration(IAppBuilder appBuilder)
+        {
+            var config = new HttpConfiguration();
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            config.MapHttpAttributeRoutes();
+
+            appBuilder.Use<DontSniffMimetypeMiddleware>();
+            appBuilder.UseWebApi(config);
+        }
+    }
 }

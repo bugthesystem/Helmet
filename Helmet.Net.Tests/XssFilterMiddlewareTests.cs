@@ -28,8 +28,8 @@ namespace Helmet.Net.Tests
             _enabledBrowsers = GrabList("enabled_browser_list.txt");
             _disabledBrowsers = GrabList("disabled_browser_list.txt");
 
-            _server = WebApp.Start<Startup>(BaseAddress);
-            _serverForConfigTest = WebApp.Start<StartupWithConfig>(BaseAddressForConfigTest);
+            _server = WebApp.Start<Startup4XssFilter>(BaseAddress);
+            _serverForConfigTest = WebApp.Start<Startup4XssFilterWithConfig>(BaseAddressForConfigTest);
         }
 
         private IEnumerable<string> GrabList(string path)

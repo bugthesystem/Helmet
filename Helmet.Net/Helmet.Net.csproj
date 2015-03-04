@@ -50,6 +50,7 @@
     <Compile Include="Configuration\HelmetConfiguration.cs" />
     <Compile Include="Configuration\IHelmetConfiguration.cs" />
     <Compile Include="Configuration\IXssFilterOptions.cs" />
+    <Compile Include="DontSniffMimetypeMiddleware.cs" />
     <Compile Include="IeNoOpenMiddleware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApiAppBuilderExtensions.cs" />

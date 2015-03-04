@@ -5,7 +5,11 @@ Middlewares to help secure your apps
 
 ##Middlewares
 
-###X-XSS-Protection middleware
+* [X-XSS-Protection middleware](#x-xss-protection-middleware)
+* ["Don't infer the MIME type" middleware](#"Don't-infer-the-MIME-type"-middleware)
+
+
+## X-XSS-Protection middleware
 
 **Trying to prevent:** Cross-site scripting attacks (XSS), a subset of the above.
 
@@ -43,3 +47,25 @@ public class Startup
 ```
 
 **Limitations:** This isn't anywhere near as thorough as ```Content Security Policy```. It's only properly supported on IE9+ and Chrome; no other major browsers support it at this time. Old versions of IE support it in a buggy way, which we disable by default.
+
+
+## "Don't infer the MIME type" middleware
+Some browsers will try to "sniff" mimetypes. For example, if my server serves file.txt with a text/plain content-type, some browsers can still run that file with ```<script src="file.txt"></script>```. Many browsers will allow file.js to be run even if the content-type isn't for JavaScript. There are [some other vulnerabilities](https://miki.it/blog/2014/7/8/abusing-jsonp-with-rosetta-flash/), too.
+
+This middleware to keep Chrome, Opera, and IE from doing this sniffing ([and Firefox soon](https://bugzilla.mozilla.org/show_bug.cgi?id=471020)). The following example sets the ```X-Content-Type-Options``` header to its only option, ```nosniff```:
+
+```csharp
+public class Startup
+{
+  public void Configuration(IAppBuilder appBuilder)
+  {
+    //omitted for brevity
+     appBuilder.Use<DontSniffMimetypeMiddleware>();
+    //...
+  }
+}
+```
+
+[MSDN has a good description](https://msdn.microsoft.com/en-us/library/gg622941(v=vs.85).aspx) of how browsers behave when this header is sent.
+
+This only prevents against a certain kind of attack.
