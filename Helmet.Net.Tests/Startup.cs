@@ -1,5 +1,6 @@
 using System.Web.Http;
 using Helmet.Net.Configuration;
+using Helmet.Net.FrameGuard;
 using Owin;
 
 namespace Helmet.Net.Tests
@@ -84,4 +85,5 @@ namespace Helmet.Net.Tests
             appBuilder.UseWebApi(config);
         }
     }
+    
 }

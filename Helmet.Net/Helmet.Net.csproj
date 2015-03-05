@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Configuration\HelmetConfiguration.cs" />
     <Compile Include="Configuration\IHelmetConfiguration.cs" />
+    <Compile Include="FrameGuard\FrameGuardMiddleware.cs" />
     <Compile Include="NoCache\INoCacheOptions.cs" />
     <Compile Include="XssFilter\IXssFilterOptions.cs" />
     <Compile Include="NoCache\NoCacheOptions.cs" />
