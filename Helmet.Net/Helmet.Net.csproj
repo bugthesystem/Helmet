@@ -49,16 +49,17 @@
   <ItemGroup>
     <Compile Include="Configuration\HelmetConfiguration.cs" />
     <Compile Include="Configuration\IHelmetConfiguration.cs" />
-    <Compile Include="Configuration\INoCacheOptions.cs" />
-    <Compile Include="Configuration\IXssFilterOptions.cs" />
-    <Compile Include="Configuration\NoCacheOptions.cs" />
-    <Compile Include="NoCacheMiddleware.cs" />
-    <Compile Include="DontSniffMimetypeMiddleware.cs" />
-    <Compile Include="IeNoOpenMiddleware.cs" />
+    <Compile Include="FrameGuard\FrameGuardMiddleware.cs" />
+    <Compile Include="NoCache\INoCacheOptions.cs" />
+    <Compile Include="XssFilter\IXssFilterOptions.cs" />
+    <Compile Include="NoCache\NoCacheOptions.cs" />
+    <Compile Include="NoCache\NoCacheMiddleware.cs" />
+    <Compile Include="DontSniffMimetype\DontSniffMimetypeMiddleware.cs" />
+    <Compile Include="IeNoOpen\IeNoOpenMiddleware.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelmetAppBuilderExtensions.cs" />
-    <Compile Include="XssFilterMiddleware.cs" />
-    <Compile Include="Configuration\XssFilterOptions.cs" />
+    <Compile Include="XssFilter\XssFilterMiddleware.cs" />
+    <Compile Include="XssFilter\XssFilterOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
