@@ -1,7 +1,7 @@
-﻿using Microsoft.Owin;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Owin;
 
-namespace Helmet.Net
+namespace Helmet.Net.DontSniffMimetype
 {
     public class DontSniffMimetypeMiddleware : OwinMiddleware
     {
@@ -12,7 +12,7 @@ namespace Helmet.Net
 
         public override async Task Invoke(IOwinContext context)
         {
-            context.Response.Headers.Add("X-Content-Type-Options", new[] { "nosniff" });
+            context.Response.Headers.Add("X-Content-Type-Options", new[] {"nosniff"});
             await Next.Invoke(context);
         }
     }

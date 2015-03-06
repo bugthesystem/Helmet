@@ -10,21 +10,21 @@ namespace Helmet.Net.Tests
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new[] { "hello", "world" };
+            return new[] {"hello", "world"};
         }
 
         [HttpGet]
         public HttpResponseMessage GetByOp(string op)
         {
-            HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK);
+            var message = new HttpResponseMessage(HttpStatusCode.OK);
 
             switch (op)
             {
                 case "etag":
-                    {
-                        message.Headers.TryAddWithoutValidation("ETag", "abc123");
-                        break;
-                    }
+                {
+                    message.Headers.TryAddWithoutValidation("ETag", "abc123");
+                    break;
+                }
             }
 
             message.Content = new StringContent("Hello world!");

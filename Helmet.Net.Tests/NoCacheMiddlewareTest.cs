@@ -12,22 +12,21 @@ namespace Helmet.Net.Tests
     {
         private const string BaseAddress = "http://localhost:9000/";
         private const string BaseAddressForConfigTest = "http://localhost:9001/";
+        private HttpClient _client;
         private IDisposable _server;
         private IDisposable _serverForConfigTest;
-        private HttpClient _client;
 
         [TestFixtureSetUp]
         public void FixtureSetup()
         {
             _server = WebApp.Start<Startup4NoCache>(BaseAddress);
             _serverForConfigTest = WebApp.Start<Startup4NoCacheWithConfig>(BaseAddressForConfigTest);
-             _client = new HttpClient();
+            _client = new HttpClient();
         }
 
         [Test]
         public async void Sets_header_properly_Test()
         {
-            
             var request = new HttpRequestMessage(HttpMethod.Get, BaseAddress + "api/foo");
 
             var response = await _client.SendAsync(request);
@@ -42,7 +41,7 @@ namespace Helmet.Net.Tests
 
 
             cacheControlHaderValues.Should().NotBeNullOrEmpty();
-            string cacheControlHeaderValue = cacheControlHaderValues.First();
+            var cacheControlHeaderValue = cacheControlHaderValues.First();
 
             cacheControlHeaderValue.Should().Contain("no-store");
             cacheControlHeaderValue.Should().Contain("no-cache");
@@ -53,7 +52,6 @@ namespace Helmet.Net.Tests
             pragmaHaderValues.First().ShouldBeEquivalentTo("no-cache");
 
             expiresHaderValues.Should().BeNull();
-            expiresHaderValues.First().ShouldBeEquivalentTo("0");
         }
 
         [Test]
@@ -75,7 +73,7 @@ namespace Helmet.Net.Tests
 
             cacheControlHaderValues.Should().NotBeNullOrEmpty();
 
-            string cacheControlHeaderValue = cacheControlHaderValues.First();
+            var cacheControlHeaderValue = cacheControlHaderValues.First();
 
             cacheControlHeaderValue.Should().Contain("no-store");
             cacheControlHeaderValue.Should().Contain("no-cache");
@@ -99,7 +97,9 @@ namespace Helmet.Net.Tests
             if (_serverForConfigTest != null)
                 _serverForConfigTest.Dispose();
 
-            using (_client){}
+            using (_client)
+            {
+            }
         }
     }
 }

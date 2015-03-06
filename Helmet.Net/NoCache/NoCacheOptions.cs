@@ -1,4 +1,4 @@
-﻿namespace Helmet.Net.Configuration
+﻿namespace Helmet.Net.NoCache
 {
     public class NoCacheOptions : INoCacheOptions
     {

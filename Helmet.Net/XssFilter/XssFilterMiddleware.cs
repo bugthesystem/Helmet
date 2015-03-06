@@ -1,9 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Helmet.Net.Configuration;
 using Microsoft.Owin;
 
-namespace Helmet.Net
+namespace Helmet.Net.XssFilter
 {
     public class XssFilterMiddleware : OwinMiddleware
     {
@@ -25,7 +24,7 @@ namespace Helmet.Net
         {
             if (_options != null && _options.SetOnOldIE)
             {
-                context.Response.Headers.Add("X-XSS-Protection", new[] {XssProtectionHeaderValue});
+                context.Response.Headers.Add("X-XSS-Protection", new[] { XssProtectionHeaderValue });
                 await Next.Invoke(context);
             }
             else
@@ -54,7 +53,7 @@ namespace Helmet.Net
                     headerToSet = XssProtectionHeaderValue;
                 }
 
-                context.Response.Headers.Add("X-XSS-Protection", new[] {headerToSet});
+                context.Response.Headers.Add("X-XSS-Protection", new[] { headerToSet });
 
                 await Next.Invoke(context);
             }

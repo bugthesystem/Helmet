@@ -12,20 +12,17 @@ using Owin;
 
 namespace Helmet.Net.Tests
 {
-    class FrameGuardMiddlewareTest : TestBase
+    internal class FrameGuardMiddlewareTest : TestBase
     {
-        
-        private IDisposable _server;
         private HttpClient _client;
         private HttpConfiguration _config;
+        private IDisposable _server;
 
-
-      
         [TestFixtureSetUp]
         public void FixtureSetup()
         {
             _config = new HttpConfiguration();
-            _config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new { id = RouteParameter.Optional });
+            _config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional});
             _config.MapHttpAttributeRoutes();
         }
 
@@ -39,7 +36,7 @@ namespace Helmet.Net.Tests
                 appBuilder.UseWebApi(_config);
             });
 
-            
+
             _client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, address + "api/foo");
 
@@ -53,7 +50,6 @@ namespace Helmet.Net.Tests
             _server.Dispose();
         }
 
-
         [Test]
         public async void Sets_Header_To_Deny_When_Called_WithLowerCaseDeny()
         {
@@ -64,7 +60,7 @@ namespace Helmet.Net.Tests
                 appBuilder.Use<FrameGuardMiddleware>("deny");
                 appBuilder.UseWebApi(_config);
             });
-            
+
             _client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, address + "api/foo");
 
@@ -102,8 +98,6 @@ namespace Helmet.Net.Tests
             _server.Dispose();
         }
 
-
-
         [Test]
         public async void Sets_Header_To_SAMEORIGIN_When_Called_LowerCaseSameOrigin()
         {
@@ -127,7 +121,6 @@ namespace Helmet.Net.Tests
 
             _server.Dispose();
         }
-
 
         [Test]
         public async void Sets_Header_To_SAMEORIGIN_When_Called_UpperCaseSameOrigin()
@@ -153,8 +146,6 @@ namespace Helmet.Net.Tests
             _server.Dispose();
         }
 
-
-
         [Test]
         public async void Sets_Header_To_Properly_When_Called_WithLowerCaseAllow_From()
         {
@@ -178,8 +169,6 @@ namespace Helmet.Net.Tests
 
             _server.Dispose();
         }
-
-
 
         [Test]
         public async void Sets_Header_To_Properly_When_Called_WithUpperCaseALLOW_FROM()
@@ -205,7 +194,6 @@ namespace Helmet.Net.Tests
             _server.Dispose();
         }
 
-
         [Test]
         public async void Sets_Header_To_Properly_When_Called_WithLowerCaseallowfrom()
         {
@@ -230,7 +218,6 @@ namespace Helmet.Net.Tests
             _server.Dispose();
         }
 
-
         [Test]
         public async void Sets_Header_To_Properly_When_Called_WithUpperCaseALLOWFROM()
         {
@@ -254,7 +241,6 @@ namespace Helmet.Net.Tests
 
             _server.Dispose();
         }
-
 
         [Test]
         public async void Work_With_StringObject_SetTo_SAMEORIGIN()
@@ -282,7 +268,6 @@ namespace Helmet.Net.Tests
             _server.Dispose();
         }
 
-
         [Test]
         public async void Work_With_ALLOW_FROM_With_StringObject()
         {
@@ -292,7 +277,7 @@ namespace Helmet.Net.Tests
             const string url = "http://example.com";
             _server = WebApp.Start(address, appBuilder =>
             {
-                appBuilder.Use<FrameGuardMiddleware>(directive,url);
+                appBuilder.Use<FrameGuardMiddleware>(directive, url);
                 appBuilder.UseWebApi(_config);
             });
 
@@ -305,7 +290,7 @@ namespace Helmet.Net.Tests
             var assert = values as IList<string> ?? values.ToList();
             assert.Should().NotBeNullOrEmpty();
             assert.First().ShouldBeEquivalentTo("ALLOW-FROMhttp://example.com");
-        
+
 
             _server.Dispose();
         }
@@ -314,6 +299,5 @@ namespace Helmet.Net.Tests
         {
             return "http://localhost:" + new Random().Next(9000, 9020).ToString(CultureInfo.InvariantCulture) + "/";
         }
-
     }
 }

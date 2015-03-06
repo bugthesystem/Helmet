@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Helmet.Net.Configuration;
 using Microsoft.Owin;
 
-namespace Helmet.Net
+namespace Helmet.Net.NoCache
 {
     public class NoCacheMiddleware : OwinMiddleware
     {
@@ -23,7 +22,8 @@ namespace Helmet.Net
         {
             _options = _options ?? new NoCacheOptions { NoEtag = false };
 
-            context.Response.Headers.Add("Cache-Control", new[] { "no-store, no-cache, must-revalidate, proxy-revalidate" });
+            context.Response.Headers.Add("Cache-Control",
+                new[] { "no-store, no-cache, must-revalidate, proxy-revalidate" });
             context.Response.Headers.Add("Pragma", new[] { "no-cache" });
             context.Response.Headers.Add("Expires", new[] { "0" });
 
@@ -35,6 +35,5 @@ namespace Helmet.Net
                     context.Response.Headers.Remove("ETag");
             }
         }
-
     }
 }
