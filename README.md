@@ -8,6 +8,7 @@ Middlewares to help secure your apps
 * [X-XSS-Protection middleware](#x-xss-protection-middleware)
 * ["Don't infer the MIME type" middleware](#dont-infer-the-mime-type-middleware)
 * [Middleware to turn off caching](#middleware-to-turn-off-caching)
+* [IE, restrict untrusted HTML](#ie-restrict-untrusted-html)
 * [Frameguard middleware](#frameguard-middleware)
 
 
@@ -106,6 +107,25 @@ public class Startup
 ```
 Caching has some real benefits, and you lose them here. Browsers won't cache resources with this enabled, although _some_ performance is retained if you keep ETag support. It's also possible that you'll introduce new bugs and you'll wish people had old resources cached, but that's less likely.
 
+## IE, restrict untrusted HTML
+This middleware sets the ```X-Download-Options``` header to ```noopen``` to prevent IE users from executing downloads in your site's context.
+
+```csharp
+public class Startup
+{
+  public void Configuration(IAppBuilder appBuilder)
+  {
+    //omitted for brevity
+    appBuilder.Use<IeNoOpenMiddleware>();
+    //...
+  }
+}
+```
+
+Some web applications will serve untrusted HTML for download. By default, some versions of IE will allow you to open those HTML files in the _context of your site_, which means that an untrusted HTML page could start doing bad things in the context of your pages. For more, see [this MSDN blog post](http://blogs.msdn.com/b/ie/archive/2008/07/02/ie8-security-part-v-comprehensive-protection.aspx).
+
+This is pretty obscure, fixing a small bug on IE only. No real drawbacks other than performance/bandwidth of setting the headers, though.
+
 ## Frameguard middleware
 
 Trying to prevent:** Your page being put in a `<frame>` or `<iframe>` without your consent. This helps to prevent things like [clickjacking attacks](https://en.wikipedia.org/wiki/Clickjacking).
@@ -129,7 +149,7 @@ public class Startup
 {
   public void Configuration(IAppBuilder appBuilder)
   {
-    // Only let me be framed by people of the same origin:
+     // Only let me be framed by people of the same origin:
      appBuilder.Use<FrameGuardMiddleware>("SAMEORIGIN");
     //...
   }
@@ -149,5 +169,3 @@ public class Startup
 ```
 
 **Limitations:** This has pretty good (but not 100%) browser support: IE8+, Opera 10.50+, Safari 4+, Chrome 4.1+, and Firefox 3.6.9+. It only prevents against a certain class of attack, but does so pretty well. It also prevents your site from being framed, which you might want for legitimate reasons.
-
-
