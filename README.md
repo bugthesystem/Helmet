@@ -10,6 +10,7 @@ Middlewares to help secure your apps
 * [Middleware to turn off caching](#middleware-to-turn-off-caching)
 * [IE, restrict untrusted HTML](#ie-restrict-untrusted-html)
 * [Frameguard middleware](#frameguard-middleware)
+* [Hide powered by](#hide-powered-by)
 
 
 ## X-XSS-Protection middleware
@@ -169,3 +170,36 @@ public class Startup
 ```
 
 **Limitations:** This has pretty good (but not 100%) browser support: IE8+, Opera 10.50+, Safari 4+, Chrome 4.1+, and Firefox 3.6.9+. It only prevents against a certain class of attack, but does so pretty well. It also prevents your site from being framed, which you might want for legitimate reasons.
+
+
+## Hide powered by
+
+Simple middleware to remove the `X-Powered-By` HTTP header if it's set.
+
+Hackers can exploit known vulnerabilities in .net web apps if they see that your site is powered by .net web apps (or whichever framework you use). For example, `X-Powered-By:.net web apps` is sent in every HTTP request coming from .net, by default.
+
+The `hidePoweredBy` middleware will remove the `X-Powered-By` header if it is set.
+
+```c#
+public class Startup
+{
+  public void Configuration(IAppBuilder appBuilder)
+  {
+     
+     appBuilder.Use<HidePoweredByHeaderMiddleware>();
+    //...
+  }
+}
+```
+You can also explicitly set the header to something else, if you want. This could throw people off:
+
+```c#
+public class Startup
+{
+  public void Configuration(IAppBuilder appBuilder)
+  {
+     
+     appBuilder.Use<HidePoweredByHeaderMiddleware>("PHP 4.2.0");
+    //...
+  }
+}
