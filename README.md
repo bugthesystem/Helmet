@@ -199,7 +199,7 @@ public class Startup
   public void Configuration(IAppBuilder appBuilder)
   {
      
-     appBuilder.Use<HidePoweredByHeaderMiddleware>("PHP 4.2.0");
+     appBuilder.Use<HidePoweredByHeaderMiddleware>(new HidePoweredOptions { SetTo = "steampowered" });
     //...
   }
 }
