@@ -176,7 +176,7 @@ public class Startup
 
 Simple middleware to remove the `X-Powered-By` HTTP header if it's set.
 
-Hackers can exploit known vulnerabilities in .net web apps if they see that your site is powered by .net web apps (or whichever framework you use). For example, `X-Powered-By:.net web apps` is sent in every HTTP request coming from .net, by default.
+Hackers can exploit known vulnerabilities in .net web apps if they see that your site is powered by .net web apps (or whichever framework you use). For example, `X-Powered-By: aspnet/mvc` is sent in every HTTP request coming from .net, by default.
 
 The `hidePoweredBy` middleware will remove the `X-Powered-By` header if it is set.
 
