@@ -8,7 +8,7 @@ namespace Helmet.Net
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class HelmetAppBuilderExtensions
     {
-        public static IAppBuilder UseHelmet(this IAppBuilder builder, IHelmetConfiguration configuration)
+        public static IAppBuilder UseHelmet(this IAppBuilder builder, HelmetConfiguration configuration)
         {
             if (builder == null)
                 throw new ArgumentNullException("builder");

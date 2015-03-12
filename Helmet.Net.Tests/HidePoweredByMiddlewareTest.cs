@@ -11,13 +11,11 @@ using Owin;
 
 namespace Helmet.Net.Tests
 {
-   public class HidePoweredMiddlewareTest:TestBase
-
+    public class HidePoweredByMiddlewareTest : TestBase
     {
         private HttpClient _client;
         private HttpConfiguration _config;
         private IDisposable _server;
-
 
         [TestFixtureSetUp]
         public void FixtureSetup()
@@ -33,7 +31,7 @@ namespace Helmet.Net.Tests
             var address = GetRandomAddress();
             _server = WebApp.Start(address, appBuilder =>
             {
-                appBuilder.Use<HidePoweredByHeaderMiddleware>(new HidePoweredOptions{});
+                appBuilder.Use<HidePoweredByHeaderMiddleware>();
                 appBuilder.UseWebApi(_config);
             });
 
@@ -45,9 +43,8 @@ namespace Helmet.Net.Tests
             IEnumerable<string> values;
             send.Headers.TryGetValues("x-powered-by", out values);
             values.Should().BeNull();
-          
-            _server.Dispose();
 
+            _server.Dispose();
         }
 
         [Test]
@@ -60,7 +57,7 @@ namespace Helmet.Net.Tests
                 appBuilder.UseWebApi(_config);
             });
 
-           _client = new HttpClient();
+            _client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, address + "api/foo");
 
             var send = await _client.SendAsync(request);
@@ -69,15 +66,11 @@ namespace Helmet.Net.Tests
             values.Should().NotBeNull("steampowered");
 
             _server.Dispose();
-
         }
 
-   
         public string GetRandomAddress()
         {
             return "http://localhost:" + new Random().Next(9000, 9020).ToString(CultureInfo.InvariantCulture) + "/";
         }
     }
-
-
 }

@@ -1,6 +1,6 @@
 ﻿namespace Helmet.Net.Configuration
 {
-    public class HelmetConfiguration : IHelmetConfiguration
+    public class HelmetConfiguration
     {
     }
 }

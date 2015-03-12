@@ -1,6 +1,5 @@
 using System.Web.Http;
 using Helmet.Net.DontSniffMimetype;
-using Helmet.Net.HidePoweredByHeader;
 using Helmet.Net.IeNoOpen;
 using Helmet.Net.NoCache;
 using Helmet.Net.XssFilter;
@@ -88,8 +87,4 @@ namespace Helmet.Net.Tests
             appBuilder.UseWebApi(config);
         }
     }
-
-
-
-    
 }

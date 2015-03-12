@@ -9,7 +9,7 @@ namespace Helmet.Net.FrameGuard
     public class FrameGuardMiddleware : OwinMiddleware
     {
         private readonly string _action;
-        private readonly string[] _headers = { "DENY", "ALLOW-FROM", "SAMEORIGIN" };
+        private readonly string[] _headers = {"DENY", "ALLOW-FROM", "SAMEORIGIN"};
         private readonly string _options;
         private string _header;
 
@@ -60,7 +60,7 @@ namespace Helmet.Net.FrameGuard
 
                 _header = "ALLOW-FROM" + _options;
             }
-            context.Response.Headers.Add("X-Frame-Options", new[] { _header });
+            context.Response.Headers.Add("X-Frame-Options", new[] {_header});
 
             await Next.Invoke(context);
         }

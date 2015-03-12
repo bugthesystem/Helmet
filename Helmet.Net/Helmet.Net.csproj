@@ -48,13 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\HelmetConfiguration.cs" />
-    <Compile Include="Configuration\IHelmetConfiguration.cs" />
     <Compile Include="FrameGuard\FrameGuardMiddleware.cs" />
     <Compile Include="HidePoweredByHeader\HidePoweredByHeaderMiddleware.cs" />
     <Compile Include="HidePoweredByHeader\HidePoweredOptions.cs" />
-    <Compile Include="HidePoweredByHeader\IHidePoweredOptions.cs" />
-    <Compile Include="NoCache\INoCacheOptions.cs" />
-    <Compile Include="XssFilter\IXssFilterOptions.cs" />
     <Compile Include="NoCache\NoCacheOptions.cs" />
     <Compile Include="NoCache\NoCacheMiddleware.cs" />
     <Compile Include="DontSniffMimetype\DontSniffMimetypeMiddleware.cs" />

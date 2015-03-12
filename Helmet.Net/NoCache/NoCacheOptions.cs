@@ -1,6 +1,6 @@
 ﻿namespace Helmet.Net.NoCache
 {
-    public class NoCacheOptions : INoCacheOptions
+    public class NoCacheOptions
     {
         public bool NoEtag { get; set; }
     }

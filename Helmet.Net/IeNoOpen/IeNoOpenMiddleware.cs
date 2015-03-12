@@ -12,7 +12,7 @@ namespace Helmet.Net.IeNoOpen
 
         public override async Task Invoke(IOwinContext context)
         {
-            context.Response.Headers.Add("X-Download-Options", new[] { "noopen" });
+            context.Response.Headers.Add("X-Download-Options", new[] {"noopen"});
             await Next.Invoke(context);
         }
     }

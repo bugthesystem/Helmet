@@ -7,9 +7,9 @@ namespace Helmet.Net.XssFilter
     public class XssFilterMiddleware : OwinMiddleware
     {
         private const string XssProtectionHeaderValue = "1; mode=block";
-        private readonly IXssFilterOptions _options;
+        private readonly XssFilterOptions _options;
 
-        public XssFilterMiddleware(OwinMiddleware next, IXssFilterOptions options)
+        public XssFilterMiddleware(OwinMiddleware next, XssFilterOptions options)
             : base(next)
         {
             _options = options;
@@ -24,7 +24,7 @@ namespace Helmet.Net.XssFilter
         {
             if (_options != null && _options.SetOnOldIE)
             {
-                context.Response.Headers.Add("X-XSS-Protection", new[] { XssProtectionHeaderValue });
+                context.Response.Headers.Add("X-XSS-Protection", new[] {XssProtectionHeaderValue});
                 await Next.Invoke(context);
             }
             else
@@ -53,7 +53,7 @@ namespace Helmet.Net.XssFilter
                     headerToSet = XssProtectionHeaderValue;
                 }
 
-                context.Response.Headers.Add("X-XSS-Protection", new[] { headerToSet });
+                context.Response.Headers.Add("X-XSS-Protection", new[] {headerToSet});
 
                 await Next.Invoke(context);
             }

@@ -5,9 +5,9 @@ namespace Helmet.Net.NoCache
 {
     public class NoCacheMiddleware : OwinMiddleware
     {
-        private INoCacheOptions _options;
+        private NoCacheOptions _options;
 
-        public NoCacheMiddleware(OwinMiddleware next, INoCacheOptions options)
+        public NoCacheMiddleware(OwinMiddleware next, NoCacheOptions options)
             : base(next)
         {
             _options = options;
@@ -20,12 +20,12 @@ namespace Helmet.Net.NoCache
 
         public override async Task Invoke(IOwinContext context)
         {
-            _options = _options ?? new NoCacheOptions { NoEtag = false };
+            _options = _options ?? new NoCacheOptions {NoEtag = false};
 
             context.Response.Headers.Add("Cache-Control",
-                new[] { "no-store, no-cache, must-revalidate, proxy-revalidate" });
-            context.Response.Headers.Add("Pragma", new[] { "no-cache" });
-            context.Response.Headers.Add("Expires", new[] { "0" });
+                new[] {"no-store, no-cache, must-revalidate, proxy-revalidate"});
+            context.Response.Headers.Add("Pragma", new[] {"no-cache"});
+            context.Response.Headers.Add("Expires", new[] {"0"});
 
             await Next.Invoke(context);
 
