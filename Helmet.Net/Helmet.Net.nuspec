@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Helmet.Net</id>
+    <title>Helmet.Net</title>
+    <version>1.0.0</version>
+    <authors>ziyasal</authors>
+    <owners>ziyasal</owners>
+    <projectUrl>https://github.com/ziyasal/Helmet.Net</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/ziyasal/helmet.net/blob/master/LICENSE</licenseUrl>
+    <description>Middlewares to help secure your apps</description>
+    <summary>
+      Middlewares to help secure your apps.
+      - X-XSS-Protection middleware
+      - "Don't infer the MIME type" middleware
+      - Middleware to turn off caching
+      - IE, restrict untrusted HTML
+      - Frameguard middleware
+      - Hide powered by
+    </summary>
+    <tags>owin middleware helmet security xss protect</tags>
+    <dependencies>
+      <dependency id="Microsoft.Owin" version="3.0.1" />
+      <dependency id="Owin" version="1.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Helmet.Net.dll" target="lib\net45\Helmet.Net.dll" />
+  </files>
+</package>
