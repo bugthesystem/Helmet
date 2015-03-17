@@ -5,9 +5,9 @@ namespace Helmet.Net.NoCache
 {
     public class NoCacheMiddleware : OwinMiddleware
     {
-        private INoCacheOptions _options;
+        private NoCacheOptions _options;
 
-        public NoCacheMiddleware(OwinMiddleware next, INoCacheOptions options)
+        public NoCacheMiddleware(OwinMiddleware next, NoCacheOptions options)
             : base(next)
         {
             _options = options;

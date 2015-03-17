@@ -31,7 +31,7 @@ namespace Helmet.Net.Tests
 
             appBuilder.Use<XssFilterMiddleware>(new XssFilterOptions
             {
-                SetOnOldIE = true
+                SetOnOldIe = true
             });
             appBuilder.UseWebApi(config);
         }

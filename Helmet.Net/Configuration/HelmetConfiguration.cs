@@ -1,6 +1,13 @@
-﻿namespace Helmet.Net.Configuration
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Helmet.Net.Configuration
 {
-    public class HelmetConfiguration : IHelmetConfiguration
+   public class HelmetConfiguration :IHelmetConfiguration
     {
+
     }
 }

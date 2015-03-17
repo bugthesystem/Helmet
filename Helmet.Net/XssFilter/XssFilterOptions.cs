@@ -1,7 +1,7 @@
 ﻿namespace Helmet.Net.XssFilter
 {
-    public class XssFilterOptions : IXssFilterOptions
+    public class XssFilterOptions 
     {
-        public bool SetOnOldIE { get; set; }
+        public bool SetOnOldIe { get; set; }
     }
 }

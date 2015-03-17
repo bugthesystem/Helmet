@@ -9,14 +9,15 @@ namespace Helmet.Net.HidePoweredByHeader
 {
    public class HidePoweredByHeaderMiddleware:OwinMiddleware
     {
-       private IHidePoweredOptions _options;
+       private  HidePoweredOptions _options;
 
 
        public HidePoweredByHeaderMiddleware(OwinMiddleware next)
            : base(next)
        {
        }
-       public HidePoweredByHeaderMiddleware(OwinMiddleware next,IHidePoweredOptions options) : base(next)
+       public HidePoweredByHeaderMiddleware(OwinMiddleware next, HidePoweredOptions options)
+           : base(next)
        {
            _options = options;
        }
