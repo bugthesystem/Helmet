@@ -3,6 +3,13 @@ Middlewares to help secure your apps
 
 [![Build status](https://ci.appveyor.com/api/projects/status/032t00oscffq1jmd?svg=true)](https://ci.appveyor.com/project/ziyasal/helmet-net)
 
+To install Helmet.Net,  run the following command in the NuGet [Package Manager Console](http://docs.nuget.org/consume/package-manager-console)
+
+```sh
+Install-Package Helmet.Net
+```
+
+
 ##Middlewares
 
 * [X-XSS-Protection middleware](#x-xss-protection-middleware)
