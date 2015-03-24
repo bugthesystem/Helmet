@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using FluentAssertions;
@@ -42,13 +43,7 @@ namespace Helmet.Net.Tests
                 
                 appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
                 {
-                    CaseSensitive = false
-                });
-
-                appBuilder.Use( (context, next) =>
-                {
-                   context.Response.Write("hello world");
-                    return next.Invoke();
+                    CaseSensitive = true
                 });
 
                 appBuilder.UseWebApi(_config);
@@ -56,13 +51,187 @@ namespace Helmet.Net.Tests
             });
 
             _client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Get, address + "api/foo");
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/crossdomain.xml");
 
-            var send = await _client.SendAsync(request);
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
             IEnumerable<string> values;
-            send.Headers.TryGetValues("Content-Type", out values);
-            values.Should().NotBeNull("text/x-cross-domain-policy");
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
                
+            _server.Dispose();
+        }
+
+        [Test]
+        public async void ExpectPolicy2()
+        {
+            var address = GetRandomAddress();
+            _server = WebApp.Start(address, appBuilder =>
+            {
+
+                appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
+                {
+                    CaseSensitive = false
+                });
+
+                appBuilder.UseWebApi(_config);
+
+            });
+
+            _client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/crossdomain.XML");
+
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
+            IEnumerable<string> values;
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
+
+            _server.Dispose();
+        }
+
+        [Test]
+        public async void ExpectPolicy3()
+        {
+            var address = GetRandomAddress();
+            _server = WebApp.Start(address, appBuilder =>
+            {
+
+                appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
+                {
+                    CaseSensitive = false
+                });
+
+                appBuilder.UseWebApi(_config);
+
+            });
+
+            _client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/CrossDomain.xml");
+
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
+            IEnumerable<string> values;
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
+
+            _server.Dispose();
+        }
+
+        [Test]
+        public async void ExpectPolicy4()
+        {
+            var address = GetRandomAddress();
+            _server = WebApp.Start(address, appBuilder =>
+            {
+
+                appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
+                {
+                    CaseSensitive = false
+                });
+                appBuilder.UseWebApi(_config);
+            });
+
+            _client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/CROSSDOMAIN.xml");
+
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
+            IEnumerable<string> values;
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
+
+            _server.Dispose();
+        }
+
+        [Test]
+        public async void ExpectPolicy5()
+        {
+            var address = GetRandomAddress();
+            _server = WebApp.Start(address, appBuilder =>
+            {
+                appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
+                {
+                    CaseSensitive = false
+                });
+                appBuilder.UseWebApi(_config);
+            });
+
+            _client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/CROSSDOMAIN.XML");
+
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
+            IEnumerable<string> values;
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
+
+            _server.Dispose();
+        }
+
+        [Test]
+        public async void ExpectPolicy6()
+        {
+            var address = GetRandomAddress();
+            _server = WebApp.Start(address, appBuilder =>
+            {
+                appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
+                {
+                    CaseSensitive = false
+                });
+                appBuilder.UseWebApi(_config);
+            });
+
+            _client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/crossdomain.xml?");
+
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
+            IEnumerable<string> values;
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
+
+            _server.Dispose();
+        }
+
+
+
+        [Test]
+        public async void ExpectPolicy7()
+        {
+            var address = GetRandomAddress();
+            _server = WebApp.Start(address, appBuilder =>
+            {
+                appBuilder.Use<CrossDomainMiddleware>(new CrossDomainOptions()
+                {
+                    CaseSensitive = false
+                });
+                appBuilder.UseWebApi(_config);
+            });
+
+            _client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, address + "/crossdomain.xml?foo=123&bar=456");
+
+            var httpResponseMessage = await _client.SendAsync(request);
+            HttpContent httpContent = httpResponseMessage.Content;
+            IEnumerable<string> values;
+            httpContent.Headers.TryGetValues("Content-Type", out values);
+            var assert = values as string[] ?? values.ToArray();
+            assert.Should().NotBeNull(Policy);
+            assert.Should().NotBeNull("text/x-cross-domain-policy");
+
             _server.Dispose();
         }
 

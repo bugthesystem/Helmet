@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Globalization;
+using System.Threading.Tasks;
 using Microsoft.Owin;
 
 namespace Helmet.Net.CrossDomain
@@ -23,15 +24,18 @@ namespace Helmet.Net.CrossDomain
 
         public async override Task Invoke(IOwinContext context)
         {
-            var pathName = context.Request.Uri.ToString();
-            var uri = _crossDomainOptions.CaseSensitive ? pathName : pathName.ToLower();
+            var pathName = context.Request.Uri.AbsolutePath;
+            var uri = _crossDomainOptions.CaseSensitive ? pathName : pathName.ToLower(CultureInfo.InvariantCulture).ToString();
 
             if ("/crossdomain.xml" == uri)
             {
-                context.Response.Headers.Add("Content-Type", new[] { "text/x-cross-domain-policy" });
-                context.Response.Write(DATA);
+                context.Response.ContentType = "text/x-cross-domain-policy";
+                 context.Response.ContentType=DATA;
             }
-            await Next.Invoke(context);
+            else
+            {
+                await Next.Invoke(context);
+            }
         }
     }
 }
