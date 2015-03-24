@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\HelmetConfiguration.cs" />
+    <Compile Include="CrossDomain\CrossDomainMiddleware.cs" />
+    <Compile Include="CrossDomain\CrossDomainOptions.cs" />
     <Compile Include="FrameGuard\FrameGuardMiddleware.cs" />
     <Compile Include="HidePoweredByHeader\HidePoweredByHeaderMiddleware.cs" />
     <Compile Include="HidePoweredByHeader\HidePoweredOptions.cs" />
