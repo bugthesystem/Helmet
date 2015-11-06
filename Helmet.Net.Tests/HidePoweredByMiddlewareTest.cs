@@ -26,7 +26,7 @@ namespace Helmet.Net.Tests
         }
 
         [Test]
-        public async void Works_Even_If_No_Header_İs_Set()
+        public async void Works_Even_If_No_Header_Is_Set()
         {
             var address = GetRandomAddress();
             _server = WebApp.Start(address, appBuilder =>
