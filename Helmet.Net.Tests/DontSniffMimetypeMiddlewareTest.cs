@@ -34,7 +34,7 @@ namespace Helmet.Net.Tests
         }
 
         [TestFixtureTearDown]
-        protected void TesTearDown()
+        protected void TestTearDown()
         {
             if (_server != null)
                 _server.Dispose();

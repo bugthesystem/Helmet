@@ -114,6 +114,7 @@
     <Compile Include="FooController.cs" />
     <Compile Include="DontSniffMimetypeMiddlewareTest.cs" />
     <Compile Include="IeNoOpenMiddlewareTest.cs" />
+    <Compile Include="PermanentRedirectMiddlewareTests.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="XssFilterMiddlewareTests.cs" />
