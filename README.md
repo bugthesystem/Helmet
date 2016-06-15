@@ -235,3 +235,25 @@ This serves the policy at `/crossdomain.xml`. By default, this is case-insensiti
 ```
 
 This doesn't make you wildly more secure, but it does help to keep Flash from loading things that you don't want it to. You might also *want* some of this behavior, in which case you should make your own less-restrictive policy and serve it.
+
+
+## Permanent Redirect middleware
+
+```c#
+public class Startup
+{
+	public void Configuration(IAppBuilder appBuilder)
+	{
+	    // Some other configuration.
+	
+	    appBuilder.Use<PermanentRedirectMiddleware>(new PermanentRedirectOptions()
+	    {
+	        RedirectRules = new List<RedirectRule>()
+	        {
+	            new RedirectRule("http://localhost:9000/test", "http://localhost:9000/test/r"),
+	            new RedirectRule("http://localhost:9000/test2", "http://localhost:9000/test2/r")
+	        }
+	    });
+	}
+}
+```
